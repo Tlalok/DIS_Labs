@@ -2,6 +2,7 @@
 using System.Linq;
 using FlatManager.Extensions;
 using FlatManager.Models.FlatModels;
+using System;
 
 namespace FlatManager.Managers
 {
@@ -32,5 +33,12 @@ namespace FlatManager.Managers
         }
 
         protected virtual void OnGetFlat(Flat flat) { }
+
+        public IEnumerable<string> GetRegionList()
+        {
+            return flats.Select(f => f.Address.Region)
+                        .Distinct(StringComparer.OrdinalIgnoreCase)
+                        .OrderBy(s => s, StringComparer.OrdinalIgnoreCase);
+        }
     }
 }

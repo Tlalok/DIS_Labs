@@ -19,6 +19,7 @@ namespace FlatManager
         static void Main(string[] args)
         {
             //GenerateTestData();
+            //return;
             var manager = new XmlFlatManager(filePath);
             manager.ReadFlats();
 
