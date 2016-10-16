@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using FlatManager.Managers;
 using FlatManager.Models.FlatModels;
+using FlatManager.UserUI;
 
 namespace FlatManager
 {
@@ -18,6 +19,9 @@ namespace FlatManager
 
         static void Main(string[] args)
         {
+            var UI = new ClientUI(new XmlFlatManager(filePath));
+            UI.Run();
+            return;
             //GenerateTestData();
             //return;
             var manager = new XmlFlatManager(filePath);
@@ -36,11 +40,20 @@ namespace FlatManager
             var owner = new Owner
             {
                 Id = 0,
-                Name = "Test owner",
-                Secondname = "second name",
+                Name = "Иван",
+                Secondname = "Иванов",
                 PhoneNumber = "123456789"
             };
             owners.Add(owner);
+            owner = new Owner
+            {
+                Id = 1,
+                Name = "Игорь",
+                Secondname = "Сидоров",
+                PhoneNumber = "987654321"
+            };
+            owners.Add(owner);
+
 
             flats = new List<Flat>();
             flats.Add(new Flat
@@ -49,13 +62,13 @@ namespace FlatManager
                 Owner = owner,
                 Address = new Address
                 {
-                    Region = "test region",
-                    Street = "test street",
-                    FlatNumber = 85,
-                    City = "test city",
-                    HouseNumber = 3
+                    Region = "Гомельская",
+                    Street = "Ленина",
+                    FlatNumber = 116,
+                    City = "Гомель",
+                    HouseNumber = 11
                 },
-                RentCostPerMonth = 30,
+                RentCostPerMonth = 300,
                 RoomCount = 3,
                 Square = 60,
                 Views = 0
@@ -67,14 +80,48 @@ namespace FlatManager
                 Owner = owner,
                 Address = new Address
                 {
-                    Street = "test street",
+                    Street = "Орловская",
                     FlatNumber = 85,
-                    City = "test city",
+                    City = "Минск",
                     HouseNumber = 3
                 },
-                RentCostPerMonth = 30,
+                RentCostPerMonth = 270,
                 RoomCount = 3,
-                Square = 60,
+                Square = 54,
+                Views = 0
+            });
+
+            flats.Add(new Flat
+            {
+                Id = 1,
+                Owner = owner,
+                Address = new Address
+                {
+                    Street = "Гикало",
+                    FlatNumber = 4,
+                    City = "Минск",
+                    HouseNumber = 13
+                },
+                RentCostPerMonth = 200,
+                RoomCount = 2,
+                Square = 41,
+                Views = 0
+            });
+
+            flats.Add(new Flat
+            {
+                Id = 1,
+                Owner = owner,
+                Address = new Address
+                {
+                    Street = "Козлова",
+                    FlatNumber = 25,
+                    City = "Минск",
+                    HouseNumber = 4
+                },
+                RentCostPerMonth = 190,
+                RoomCount = 2,
+                Square = 37,
                 Views = 0
             });
 

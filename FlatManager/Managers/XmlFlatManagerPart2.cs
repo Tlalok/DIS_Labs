@@ -10,7 +10,7 @@ namespace FlatManager.Managers
     public partial class XmlFlatManager
     {
         private string filePath;
-        private IEnumerable<Owner> owners;
+        private List<Owner> owners;
 
         public string FilePath
         {

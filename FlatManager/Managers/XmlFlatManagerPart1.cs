@@ -36,7 +36,7 @@ namespace FlatManager.Managers
                             where string.Equals(el.Name.LocalName, "owners", StringComparison.InvariantCultureIgnoreCase)
                             select el;
 
-            this.owners = from el in ownerData.First().Elements()
+            var owners = from el in ownerData.First().Elements()
                          select new Owner
                          {
                              Id = int.Parse(el.Attribute("id").Value),
@@ -44,6 +44,7 @@ namespace FlatManager.Managers
                              Secondname = el.Attribute("secondname").Value,
                              PhoneNumber = el.Attribute("phoneNumber").Value,
                          };
+            this.owners = owners.ToList();
 
             var ownerDictionary = owners.ToDictionary(o => o.Id);
 
@@ -51,19 +52,19 @@ namespace FlatManager.Managers
                            where string.Equals(el.Name.LocalName, "flats", StringComparison.InvariantCultureIgnoreCase)
                            select el;
 
-            this.flats = from el in flatData.First().Elements()
+            var flats = from el in flatData.First().Elements()
                                select new Flat
                                {
                                    Id = int.Parse(el.Attribute("id").Value),
                                    RentCostPerMonth = double.Parse(el.Attribute("rentCostPerMonth").Value),
                                    RoomCount = int.Parse(el.Attribute("roomCount").Value),
-                                   Square = int.Parse(el.Attribute("square").Value),
+                                   //Square = int.Parse(el.Attribute("square").Value),
                                    Views = int.Parse(el.Attribute("views").Value),
                                    Owner = ownerDictionary[int.Parse(el.Attribute("owner").Value)],
                                    Address = new Address
                                    {
-                                       Region = el.Element("address").Attributes().Count(a => string.Equals(a.Name.LocalName, "region", StringComparison.InvariantCultureIgnoreCase)) != 0 
-                                       ? el.Element("address").Attribute("region").Value 
+                                       Region = el.Element("address").Attributes().Count(a => string.Equals(a.Name.LocalName, "region", StringComparison.InvariantCultureIgnoreCase)) != 0
+                                       ? el.Element("address").Attribute("region").Value
                                        : null,
                                        City = el.Element("address").Attribute("city").Value,
                                        Street = el.Element("address").Attribute("street").Value,
@@ -72,7 +73,7 @@ namespace FlatManager.Managers
                                    }
                                };
 
-
+            this.flats = flats.ToList();
 
         }
 
@@ -99,6 +100,7 @@ namespace FlatManager.Managers
                 flatElement.Add(new XAttribute("id", flat.Id));
                 flatElement.Add(new XAttribute("rentCostPerMonth", flat.RentCostPerMonth));
                 flatElement.Add(new XAttribute("roomCount", flat.RoomCount));
+                flatElement.Add(new XAttribute("square", flat.Square));
                 flatElement.Add(new XAttribute("views", flat.Views));
                 flatElement.Add(new XAttribute("owner", flat.Owner.Id));
                 var addressElement = new XElement("address");

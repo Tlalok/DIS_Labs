@@ -9,9 +9,9 @@ namespace FlatManager.Extensions
 {
     public static class FlatExtensions
     {
-        public static string ToGridView(this Flat flat)
+        public static KeyValuePair<int, string> ToGridView(this Flat flat)
         {
-            return flat.Address.ToString();
+            return new KeyValuePair<int, string> (flat.Id, flat.Address.ToString() );
         }
     }
 }

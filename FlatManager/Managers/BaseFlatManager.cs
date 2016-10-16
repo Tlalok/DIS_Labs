@@ -10,17 +10,17 @@ namespace FlatManager.Managers
     {
         public delegate bool FlatFilter(Flat flat);
 
-        protected IEnumerable<Flat> flats;
+        protected List<Flat> flats;
 
         public abstract void ReadFlats();
         public abstract void WriteFlats();
 
-        public IEnumerable<string> GetFlatList()
+        public IEnumerable<KeyValuePair<int, string>> GetFlatList()
         {
             return flats.Select(f => f.ToGridView());
         }
 
-        public IEnumerable<string> GetFlatList(FlatFilter filter)
+        public IEnumerable<KeyValuePair<int, string>> GetFlatList(FlatFilter filter)
         {
             return flats.Where(flat => filter(flat)).Select(f => f.ToGridView());
         }
