@@ -47,6 +47,7 @@
     <Compile Include="Extensions\FlatExtensions.cs" />
     <Compile Include="Managers\XmlFlatManagerPart1.cs" />
     <Compile Include="Managers\XmlFlatManagerPart2.cs" />
+    <Compile Include="Models\FlatFilter.cs" />
     <Compile Include="Models\FlatModels\Address.cs" />
     <Compile Include="Models\FlatModels\Flat.cs" />
     <Compile Include="Models\FlatModels\Owner.cs" />

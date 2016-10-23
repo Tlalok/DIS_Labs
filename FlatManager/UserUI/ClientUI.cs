@@ -5,13 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using FlatManager.Managers;
 using FlatManager.Models.FlatModels;
+using static FlatManager.Managers.BaseFlatManager;
+using FlatManager.Models;
 
 namespace FlatManager.UserUI
 {
     public class ClientUI : UserUI
     {
         public ClientUI(BaseFlatManager flatManager) : base(flatManager) { }
-        private Func<Flat, bool> filter = f => true;
+        private FlatFilterArgs filter;
 
         public override void Run()
         {
@@ -34,6 +36,14 @@ namespace FlatManager.UserUI
             } while (true);
         }
 
+        private void ShowMenu()
+        {
+            Console.WriteLine("1. Поиск квартиры.");
+            Console.WriteLine("2. Установка фильтра.");
+            Console.WriteLine("2. Назад.");
+        }
+
+        #region Flat search
         private void SelectRegion()
         {
             flatManager.ReadFlats();
@@ -73,13 +83,6 @@ namespace FlatManager.UserUI
                     break;
                 }
             } while (true);
-        }
-
-        private void ShowMenu()
-        {
-            Console.WriteLine("1. Поиск квартиры.");
-            Console.WriteLine("2. Установка фильтра.");
-            Console.WriteLine("2. Назад.");
         }
 
         private void ShowRegionList(IEnumerable<string> regions)
@@ -122,6 +125,31 @@ namespace FlatManager.UserUI
             Console.WriteLine("Нажмите любой кнопку, чтобы перейти назад.");
             Console.ReadKey();
         }
+        #endregion
+
+        #region Set filter
+        private void ShowCurrentFilter()
+        {
+            Console.WriteLine("Площадь (S):        {0, 6} <= S  <= {1, 6}", filter.Square.Min, filter.Square.Max);
+            Console.WriteLine("Кол-во комнат (RC): {0, 6} <= RC <= {1, 6}", filter.RoomCount.Min, filter.RoomCount.Max);
+            Console.WriteLine("Цена (C):           {0, 6} <= C  <= {1, 6}", filter.Cost.Min, filter.Cost.Max);
+            Console.WriteLine("Город (T):          {0}", filter.City);
+        }
+
+        private void ShowFilterMenu()
+        {
+            Console.WriteLine("1. Фильтр площади.");
+            Console.WriteLine("2. Фильтр кол-ва комнат.");
+            Console.WriteLine("3. Фильтр цены.");
+            Console.WriteLine("4. Фильтр города.");
+            Console.WriteLine("5. Назад.");
+        }
+
+        private void SetFilter()
+        {
+
+        }
+        #endregion
 
         private int EnterAnswer(int lowerBound, int upperBound)
         {
@@ -134,11 +162,6 @@ namespace FlatManager.UserUI
                 numberParsed = int.TryParse(answer, out result);
             } while (!numberParsed || result < lowerBound || result > upperBound);
             return result;
-        }
-
-        private void SetFilter()
-        {
-
         }
     }
 }
