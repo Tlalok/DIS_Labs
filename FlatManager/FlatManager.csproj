@@ -54,6 +54,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserUI\ClientUI.cs" />
+    <Compile Include="UserUI\Menu\ClientMainMenu.cs" />
+    <Compile Include="UserUI\Menu\MenuWrapper.cs" />
+    <Compile Include="UserUI\Menu\MenuDisplayer.cs" />
+    <Compile Include="UserUI\Menu\SelectFlat\SelectFlatMenu.cs" />
+    <Compile Include="UserUI\Menu\SelectFlat\SelectRegionMenu.cs" />
+    <Compile Include="UserUI\Menu\SetFilter\SelectFilterMenu.cs" />
+    <Compile Include="UserUI\Menu\SetFilter\SetCityMenu.cs" />
+    <Compile Include="UserUI\Menu\SetFilter\SetRangeFilterMenu.cs" />
     <Compile Include="UserUI\UserUI.cs" />
     <Compile Include="UserUI\OwnerUI.cs" />
   </ItemGroup>

@@ -20,9 +20,18 @@ namespace FlatManager.Managers
             return flats.Select(f => f.ToGridView());
         }
 
-        public IEnumerable<KeyValuePair<int, string>> GetFlatList(FlatFilter filter)
+        public IEnumerable<KeyValuePair<int, string>> GetFlatList(string region, FlatFilter filter)
         {
-            return flats.Where(flat => filter(flat)).Select(f => f.ToGridView());
+            Func<Flat, bool> regionFilter;
+            if (string.Equals(region, "Минск", StringComparison.InvariantCultureIgnoreCase))
+            {
+                regionFilter = f => string.Equals(f.Address.City, region, StringComparison.InvariantCultureIgnoreCase);
+            }
+            else
+            {
+                regionFilter = f => string.Equals(f.Address.Region, region, StringComparison.InvariantCultureIgnoreCase);
+            }
+            return flats.Where(flat => regionFilter(flat) && filter(flat)).Select(f => f.ToGridView());
         }
 
         public Flat GetFlat(int id)

@@ -22,8 +22,8 @@ namespace FlatManager
             var UI = new ClientUI(new XmlFlatManager(filePath));
             UI.Run();
             return;
-            //GenerateTestData();
-            //return;
+            GenerateTestData();
+            return;
             var manager = new XmlFlatManager(filePath);
             manager.ReadFlats();
 

@@ -1,111 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FlatManager.Managers;
-using FlatManager.Models.FlatModels;
-using static FlatManager.Managers.BaseFlatManager;
 using FlatManager.Models;
+using FlatManager.UserUI.Menu;
+using FlatManager.UserUI.Menu.SelectFlat;
+using FlatManager.UserUI.Menu.SetFilter;
 
 namespace FlatManager.UserUI
 {
     public class ClientUI : UserUI
     {
         public ClientUI(BaseFlatManager flatManager) : base(flatManager) { }
-        private FlatFilterArgs filter;
+        private FlatFilterArgs filter = new FlatFilterArgs();
 
         public override void Run()
         {
-            do
-            {
-                ShowMenu();
-                var pickedItem = EnterAnswer(1, 3);
-                if (pickedItem == 1)
+            var menu = new MenuWrapper(
+                new ClientMainMenu(),
+                new List<Action>
                 {
-                    SelectRegion();
-                }
-                else if (pickedItem == 2)
-                {
-                    SetFilter();
-                }
-                else
-                {
-                    break;
-                }
-            } while (true);
-        }
-
-        private void ShowMenu()
-        {
-            Console.WriteLine("1. Поиск квартиры.");
-            Console.WriteLine("2. Установка фильтра.");
-            Console.WriteLine("2. Назад.");
+                    SelectRegion,
+                    SetFilter,
+                });
+            menu.Run();
         }
 
         #region Flat search
         private void SelectRegion()
         {
             flatManager.ReadFlats();
-            var regions = flatManager.GetRegionList().ToList();
-            int pickedRegion = -1;
-            do
-            {
-                ShowRegionList(regions);
-                pickedRegion = EnterAnswer(1, regions.Count + 1) - 1;
-                if (pickedRegion != regions.Count)
-                {
-                    SelectFlat(regions[pickedRegion]);
-                }
-                else
-                {
-                    break;
-                }
-            } while (true);
+            var regions = flatManager.GetRegionList()
+                                     .Select(f => string.IsNullOrEmpty(f) ? "Минск" : f)
+                                     .ToList();
+            var menu = new MenuWrapper(
+                new SelectRegionMenu(regions),
+                (pickedRegion) => SelectFlat(regions[pickedRegion])
+                );
+            menu.Run();
             flatManager.WriteFlats();
         }
 
         private void SelectFlat(string region)
         {
-            int pickedFlat = -1;
-            var flats = flatManager.GetFlatList(f => string.Equals(f.Address.Region, region, StringComparison.InvariantCultureIgnoreCase) && filter(f))
+            var flats = flatManager.GetFlatList(region, f => filter.Predicate(f))
                                    .ToList();
-            do
-            {
-                ShowFlatList(flats.Select(f => f.Value));
-                pickedFlat = EnterAnswer(1, flats.Count + 1) - 1;
-                if (pickedFlat != flats.Count)
-                {
-                    ShowFlat(flats[pickedFlat].Key);
-                }
-                else
-                {
-                    break;
-                }
-            } while (true);
-        }
-
-        private void ShowRegionList(IEnumerable<string> regions)
-        {
-            Console.WriteLine("Выберите область:");
-            var i = 1;
-            regions = regions.Select(f => string.IsNullOrEmpty(f) ? "Минск" : f);
-            foreach (var region in regions)
-            {
-                Console.WriteLine("{0}. {1}", i++,  region);
-            }
-            Console.WriteLine("{0}. Назад", i);
-        }
-
-        private void ShowFlatList(IEnumerable<string> flats)
-        {
-            Console.WriteLine("Выберите квартиру:");
-            var i = 1;
-            foreach (var flat in flats)
-            {
-                Console.WriteLine("{0}. {1}", i++, flat);
-            }
-            Console.WriteLine("{0}. Назад", i);
+            var menu = new MenuWrapper(
+                new SelectFlatMenu(flats.Select(f => f.Value)),
+                (pickedFlat) => ShowFlat(flats[pickedFlat].Key));
+            menu.Run();
         }
 
         private void ShowFlat(int flatId)
@@ -128,36 +71,60 @@ namespace FlatManager.UserUI
         #endregion
 
         #region Set filter
-        private void ShowCurrentFilter()
-        {
-            Console.WriteLine("Площадь (S):        {0, 6} <= S  <= {1, 6}", filter.Square.Min, filter.Square.Max);
-            Console.WriteLine("Кол-во комнат (RC): {0, 6} <= RC <= {1, 6}", filter.RoomCount.Min, filter.RoomCount.Max);
-            Console.WriteLine("Цена (C):           {0, 6} <= C  <= {1, 6}", filter.Cost.Min, filter.Cost.Max);
-            Console.WriteLine("Город (T):          {0}", filter.City);
-        }
-
-        private void ShowFilterMenu()
-        {
-            Console.WriteLine("1. Фильтр площади.");
-            Console.WriteLine("2. Фильтр кол-ва комнат.");
-            Console.WriteLine("3. Фильтр цены.");
-            Console.WriteLine("4. Фильтр города.");
-            Console.WriteLine("5. Назад.");
-        }
-
         private void SetFilter()
         {
+            var menu = new MenuWrapper(
+                new SelectFilterMenu(filter), 
+                new List<Action>
+                {
+                    () => SetRangeFilter(filter.Square),
+                    () => SetRangeFilter(filter.RoomCount),
+                    () => SetRangeFilter(filter.Cost),
+                    () => SetCity(filter)
+                });
+            menu.Run();
+        }
 
+        private void SetRangeFilter(Range range)
+        {
+            var menu = new MenuWrapper(
+                new SetRangeFilterMenu(),
+                new List<Action>
+                {
+                    () => range.Max = EnterIntegerValue(0, int.MaxValue),
+                    () => range.Max = null,
+                    () => range.Min = EnterIntegerValue(0, int.MaxValue),
+                    () => range.Min = null
+                } 
+            );
+            menu.Run();
+        }
+
+        private void SetCity(FlatFilterArgs filter)
+        {
+            var menu = new MenuWrapper(
+                new SetCityMenu(),
+                new List<Action>
+                {
+                    () =>
+                    {
+                        Console.Write("Введите город: ");
+                        filter.City = Console.ReadLine();
+                    },
+                    () => filter.City = null
+                }
+            );
+            menu.Run();
         }
         #endregion
 
-        private int EnterAnswer(int lowerBound, int upperBound)
+        private int EnterIntegerValue(int lowerBound, int upperBound)
         {
             bool numberParsed;
             int result;
             do
             {
-                Console.Write("Введите ответ: ");
+                Console.Write("Введите значение: ");
                 var answer = Console.ReadLine();
                 numberParsed = int.TryParse(answer, out result);
             } while (!numberParsed || result < lowerBound || result > upperBound);

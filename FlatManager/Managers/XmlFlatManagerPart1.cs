@@ -58,7 +58,7 @@ namespace FlatManager.Managers
                                    Id = int.Parse(el.Attribute("id").Value),
                                    RentCostPerMonth = double.Parse(el.Attribute("rentCostPerMonth").Value),
                                    RoomCount = int.Parse(el.Attribute("roomCount").Value),
-                                   //Square = int.Parse(el.Attribute("square").Value),
+                                   Square = int.Parse(el.Attribute("square").Value),
                                    Views = int.Parse(el.Attribute("views").Value),
                                    Owner = ownerDictionary[int.Parse(el.Attribute("owner").Value)],
                                    Address = new Address
