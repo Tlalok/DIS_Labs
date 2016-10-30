@@ -9,11 +9,12 @@ namespace FlatManager.UserUI.Menu
     public class MenuWrapper
     {
         private readonly List<Action> actions;
-        private readonly MenuDisplayer menuDisplayer;
+        private readonly IMenuDisplayer menuDisplayer;
         private readonly Action<int> action;
-        public MenuWrapper(MenuDisplayer menuDisplayer, List<Action> actions)
+        private readonly List<int> exitOnAction;
+        public MenuWrapper(IMenuDisplayer menuDisplayer, List<Action> actions, List<int> exitOnAction = null)
         {
-            
+            this.exitOnAction = exitOnAction ?? new List<int>();
             if (menuDisplayer == null) throw new ArgumentNullException(nameof(menuDisplayer));
             if (actions == null) throw new ArgumentNullException(nameof(actions));
             if ((menuDisplayer.Items.Count - 1) != actions.Count)
@@ -23,7 +24,7 @@ namespace FlatManager.UserUI.Menu
             this.actions = actions;
         }
 
-        public MenuWrapper(MenuDisplayer menuDisplayer, Action<int> action)
+        public MenuWrapper(IMenuDisplayer menuDisplayer, Action<int> action)
         {
 
             if (menuDisplayer == null) throw new ArgumentNullException(nameof(menuDisplayer));
@@ -51,6 +52,10 @@ namespace FlatManager.UserUI.Menu
                     break;
                 }
                 actions[actionIndex]();
+                if (exitOnAction.Contains(actionIndex))
+                {
+                    break;
+                }
             } while (true);
         }
 

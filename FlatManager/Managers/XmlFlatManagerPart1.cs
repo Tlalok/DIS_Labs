@@ -118,6 +118,13 @@ namespace FlatManager.Managers
             document.Save(filePath);
         }
 
+        public override void CreateOwner(Owner owner)
+        {
+            var newId = owners.Any() ? owners.Max(ow => ow.Id) + 1 : 0;
+            owner.Id = newId;
+            owners.Add(owner);
+        }
+
         protected override void OnGetFlat(Flat flat)
         {
             flat.Views++;

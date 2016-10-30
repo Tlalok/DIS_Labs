@@ -4,8 +4,9 @@ using System.Linq;
 using FlatManager.Managers;
 using FlatManager.Models;
 using FlatManager.UserUI.Menu;
-using FlatManager.UserUI.Menu.SelectFlat;
-using FlatManager.UserUI.Menu.SetFilter;
+using FlatManager.UserUI.Menu.Client;
+using FlatManager.UserUI.Menu.Client.SelectFlat;
+using FlatManager.UserUI.Menu.Client.SetFilter;
 
 namespace FlatManager.UserUI
 {
@@ -116,7 +117,6 @@ namespace FlatManager.UserUI
             );
             menu.Run();
         }
-        #endregion
 
         private int EnterIntegerValue(int lowerBound, int upperBound)
         {
@@ -130,5 +130,6 @@ namespace FlatManager.UserUI
             } while (!numberParsed || result < lowerBound || result > upperBound);
             return result;
         }
+        #endregion
     }
 }

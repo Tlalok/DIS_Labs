@@ -11,7 +11,7 @@ namespace FlatManager.UserUI
     {
         protected BaseFlatManager flatManager;
 
-        public UserUI(BaseFlatManager flatManager)
+        protected UserUI(BaseFlatManager flatManager)
         {
             this.flatManager = flatManager;
         }

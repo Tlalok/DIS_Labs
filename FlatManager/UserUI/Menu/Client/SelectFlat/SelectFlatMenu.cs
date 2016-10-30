@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FlatManager.UserUI.Menu.SelectFlat
+namespace FlatManager.UserUI.Menu.Client.SelectFlat
 {
-    public class SelectRegionMenu : MenuDisplayer
+    public class SelectFlatMenu : MenuDisplayer
     {
-        public SelectRegionMenu(IEnumerable<string> regions) : base(regions, OnDisplayingMenu)
+        public SelectFlatMenu(IEnumerable<string> flats) : base(flats, OnDisplayingMenu)
         {
+            
         }
 
         private static Action OnDisplayingMenu
@@ -16,7 +17,7 @@ namespace FlatManager.UserUI.Menu.SelectFlat
                 return () =>
                 {
                     Console.WriteLine();
-                    Console.WriteLine("Выберите область:");
+                    Console.WriteLine("Выберите квартиру:");
                 };
             }
         }

@@ -54,20 +54,30 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserUI\ClientUI.cs" />
-    <Compile Include="UserUI\Menu\ClientMainMenu.cs" />
+    <Compile Include="UserUI\Menu\Client\ClientMainMenu.cs" />
+    <Compile Include="UserUI\Menu\IMenuDisplayer.cs" />
+    <Compile Include="UserUI\Menu\MainMenu.cs" />
     <Compile Include="UserUI\Menu\MenuWrapper.cs" />
     <Compile Include="UserUI\Menu\MenuDisplayer.cs" />
-    <Compile Include="UserUI\Menu\SelectFlat\SelectFlatMenu.cs" />
-    <Compile Include="UserUI\Menu\SelectFlat\SelectRegionMenu.cs" />
-    <Compile Include="UserUI\Menu\SetFilter\SelectFilterMenu.cs" />
-    <Compile Include="UserUI\Menu\SetFilter\SetCityMenu.cs" />
-    <Compile Include="UserUI\Menu\SetFilter\SetRangeFilterMenu.cs" />
+    <Compile Include="UserUI\Menu\Owner\AddressUpdateMenu.cs" />
+    <Compile Include="UserUI\Menu\Owner\FlatUpdateMenu.cs" />
+    <Compile Include="UserUI\Menu\Owner\LoginMenu.cs" />
+    <Compile Include="UserUI\Menu\Owner\FlatActionsMenu.cs" />
+    <Compile Include="UserUI\Menu\Owner\OwnerActionsMenu.cs" />
+    <Compile Include="UserUI\Menu\Owner\OwnerMainMenu.cs" />
+    <Compile Include="UserUI\Menu\Client\SelectFlat\SelectFlatMenu.cs" />
+    <Compile Include="UserUI\Menu\Client\SelectFlat\SelectRegionMenu.cs" />
+    <Compile Include="UserUI\Menu\Client\SetFilter\SelectFilterMenu.cs" />
+    <Compile Include="UserUI\Menu\Client\SetFilter\SetCityMenu.cs" />
+    <Compile Include="UserUI\Menu\Client\SetFilter\SetRangeFilterMenu.cs" />
+    <Compile Include="UserUI\Menu\Owner\SelectFlatMenu.cs" />
     <Compile Include="UserUI\UserUI.cs" />
     <Compile Include="UserUI\OwnerUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

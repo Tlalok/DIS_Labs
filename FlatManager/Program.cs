@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using FlatManager.Managers;
 using FlatManager.Models.FlatModels;
 using FlatManager.UserUI;
+using FlatManager.UserUI.Menu;
 
 namespace FlatManager
 {
@@ -19,19 +20,18 @@ namespace FlatManager
 
         static void Main(string[] args)
         {
-            var UI = new ClientUI(new XmlFlatManager(filePath));
-            UI.Run();
+            var menu = new MenuWrapper(
+                new MainMenu(),
+                new List<Action>
+                {
+                    () => new OwnerUI(new XmlFlatManager(filePath)).Run(),
+                    () => new ClientUI(new XmlFlatManager(filePath)).Run()
+                });
+            menu.Run();
+
             return;
             GenerateTestData();
             return;
-            var manager = new XmlFlatManager(filePath);
-            manager.ReadFlats();
-
-            foreach (var s in manager.GetFlatList())
-            {
-                Console.WriteLine(s);
-            }
-            Console.ReadKey();
         }
 
         private static void GenerateTestData()

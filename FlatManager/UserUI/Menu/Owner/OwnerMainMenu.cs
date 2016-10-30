@@ -4,25 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlatManager.UserUI.Menu.SetFilter
+namespace FlatManager.UserUI.Menu
 {
-    public class SetCityMenu : MenuDisplayer
+    public class OwnerMainMenu : MenuDisplayer
     {
-        public SetCityMenu() : base(Items, Console.WriteLine)
+        public OwnerMainMenu() : base(Items, System.Console.WriteLine)
         {
-            
         }
+
         private static IEnumerable<string> Items
         {
             get
             {
                 var items = new List<string>
                 {
-                    "Установить город",
-                    "Очистить город"
+                    "Вход.",
+                    "Регистрация."
                 };
                 return items;
             }
         }
     }
+
 }

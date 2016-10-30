@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FlatManager.UserUI.Menu
+namespace FlatManager.UserUI.Menu.Client
 {
     public class ClientMainMenu : MenuDisplayer
     {
@@ -14,7 +14,7 @@ namespace FlatManager.UserUI.Menu
             {
                 var items = new List<string>
                 {
-                    "Поиск квартиры.",
+                    "Просмотр квартир.",
                     "Установка фильтра."
                 };
                 return items;

@@ -16,5 +16,10 @@ namespace FlatManager.Managers
         {
             get { return filePath; }
         }
+
+        public override List<Owner> Owners
+        {
+            get { return owners; }
+        }
     }
 }

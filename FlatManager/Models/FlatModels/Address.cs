@@ -3,7 +3,7 @@ using System.Text;
 
 namespace FlatManager.Models.FlatModels
 {
-    public class Address
+    public class Address : ICloneable
     {
         public string Region { get; set; }
         public string City { get; set; }
@@ -22,6 +22,18 @@ namespace FlatManager.Models.FlatModels
                   .Append(" дом ").Append(HouseNumber)
                   .Append(" кв. ").Append(FlatNumber);
             return result.ToString();
+        }
+
+        public object Clone()
+        {
+            return new Address
+            {
+                Region = Region,
+                City = City,
+                Street = Street,
+                HouseNumber = HouseNumber,
+                FlatNumber = FlatNumber
+            };
         }
     }
 }

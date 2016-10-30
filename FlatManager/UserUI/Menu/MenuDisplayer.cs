@@ -6,29 +6,42 @@ using System.Threading.Tasks;
 
 namespace FlatManager.UserUI.Menu
 {
-    public class MenuDisplayer
+    public class MenuDisplayer : IMenuDisplayer
     {
-        private readonly List<string> items;
+        //private readonly List<string> items;
+        private readonly Func<List<string>> itemSelector;
         private readonly Action onShowingMenu;
         private readonly string backMenuItemName = "Назад.";
 
         public List<string> Items
         {
-            get { return items; }
+            get { return itemSelector(); }
         }
 
         public MenuDisplayer(IEnumerable<string> items)
         {
             if (items == null) throw new ArgumentNullException(nameof(items));
 
-            this.items = items.Concat(new [] { backMenuItemName }).ToList();
+            //this.items = items.Concat(new [] { backMenuItemName }).ToList();
+            itemSelector = () => items.Concat(new[] {backMenuItemName}).ToList();
             onShowingMenu = () => { };
         }
 
         public MenuDisplayer(IEnumerable<string> items, Action onShowingMenu) : this(items)
         {
             if (onShowingMenu == null) throw new ArgumentNullException(nameof(onShowingMenu));
+            this.onShowingMenu = onShowingMenu;
+        }
 
+        public MenuDisplayer(Func<IEnumerable<string>> itemSelector)
+        {
+            if (itemSelector == null) throw new ArgumentNullException(nameof(itemSelector));
+            this.itemSelector = () => itemSelector().Concat(new[] { backMenuItemName }).ToList();
+        }
+
+        public MenuDisplayer(Func<IEnumerable<string>> itemSelector, Action onShowingMenu) : this(itemSelector)
+        {
+            if (onShowingMenu == null) throw new ArgumentNullException(nameof(onShowingMenu));
             this.onShowingMenu = onShowingMenu;
         }
 
@@ -39,16 +52,16 @@ namespace FlatManager.UserUI.Menu
             {
                 onShowingMenu();
                 ShowMenu();
-                pickedItem = EnterAnswer(1, items.Count);
-            } while (pickedItem < 1 || pickedItem > items.Count);
+                pickedItem = EnterAnswer(1, Items.Count);
+            } while (pickedItem < 1 || pickedItem > Items.Count);
             return pickedItem;
         }
 
         private void ShowMenu()
         {
-            foreach (var i in Enumerable.Range(1, items.Count))
+            foreach (var i in Enumerable.Range(1, Items.Count))
             {
-                Console.WriteLine("{0}. {1}", i, items[i - 1]);
+                Console.WriteLine("{0}. {1}", i, Items[i - 1]);
             }
         }
 

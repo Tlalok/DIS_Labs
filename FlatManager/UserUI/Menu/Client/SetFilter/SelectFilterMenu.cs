@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FlatManager.Models;
 
-namespace FlatManager.UserUI.Menu.SetFilter
+namespace FlatManager.UserUI.Menu.Client.SetFilter
 {
     public class SelectFilterMenu : MenuDisplayer
     {
