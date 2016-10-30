@@ -93,7 +93,7 @@ namespace FlatManager
 
             flats.Add(new Flat
             {
-                Id = 1,
+                Id = 2,
                 Owner = owner,
                 Address = new Address
                 {
@@ -110,7 +110,7 @@ namespace FlatManager
 
             flats.Add(new Flat
             {
-                Id = 1,
+                Id = 3,
                 Owner = owner,
                 Address = new Address
                 {

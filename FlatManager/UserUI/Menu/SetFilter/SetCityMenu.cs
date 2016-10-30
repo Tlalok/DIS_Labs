@@ -8,7 +8,7 @@ namespace FlatManager.UserUI.Menu.SetFilter
 {
     public class SetCityMenu : MenuDisplayer
     {
-        public SetCityMenu() : base(Items)
+        public SetCityMenu() : base(Items, Console.WriteLine)
         {
             
         }

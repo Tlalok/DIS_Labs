@@ -4,7 +4,7 @@ namespace FlatManager.UserUI.Menu
 {
     public class ClientMainMenu : MenuDisplayer
     {
-        public ClientMainMenu() : base(Items)
+        public ClientMainMenu() : base(Items, System.Console.WriteLine)
         {
         }
 

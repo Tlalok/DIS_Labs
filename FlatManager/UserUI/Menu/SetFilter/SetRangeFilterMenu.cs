@@ -8,7 +8,7 @@ namespace FlatManager.UserUI.Menu.SetFilter
 {
     public class SetRangeFilterMenu : MenuDisplayer
     {
-        public SetRangeFilterMenu() : base(Items)
+        public SetRangeFilterMenu() : base(Items, Console.WriteLine)
         {
             
         }

@@ -32,6 +32,7 @@ namespace FlatManager.UserUI.Menu.SetFilter
         {
             return () =>
             {
+                Console.WriteLine();
                 Console.WriteLine("Площадь (S):        {0, 6} <= S  <= {1, 6}", filter.Square.Min, filter.Square.Max);
                 Console.WriteLine("Кол-во комнат (RC): {0, 6} <= RC <= {1, 6}", filter.RoomCount.Min,
                     filter.RoomCount.Max);
