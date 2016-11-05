@@ -37,7 +37,26 @@ namespace FlatManager.UserUI
 
         private void Registration()
         {
-            
+            flatManager.ReadFlats();
+            var newOwner = new Owner();
+            var menu = new MenuWrapper(
+                   new CreateOwnerMenu(newOwner), 
+                   new List<Action>
+                   {
+                       () => newOwner.Name = EnterStringValue(1, 30),
+                       () => newOwner.Secondname = EnterStringValue(1, 30),
+                       () => newOwner.PhoneNumber = EnterStringValue(1, 12),
+                       () =>
+                       {
+                           if (ValidateOwner(newOwner))
+                           {
+                               flatManager.CreateOwner(newOwner);
+                               Console.WriteLine("Аккаунт был создан.");
+                           }
+                       }
+                   });
+            menu.Run();
+            flatManager.WriteFlats();
         }
 
         private void OwnerActions()
@@ -108,13 +127,30 @@ namespace FlatManager.UserUI
             var valid = flat.RentCostPerMonth != 0
                    && flat.RoomCount != 0
                    && flat.Square != 0
-                   && string.IsNullOrEmpty(flat.Address.City)
-                   && string.IsNullOrEmpty(flat.Address.Street)
+                   && !string.IsNullOrEmpty(flat.Address.City)
+                   && !string.IsNullOrEmpty(flat.Address.Street)
                    && flat.Address.HouseNumber != 0
                    && flat.Address.FlatNumber != 0;
             if (!valid)
             {
-                Console.WriteLine("Вы не заполнили все поля");
+                Console.WriteLine("Вы не заполнили все поля.");
+            }
+            return valid;
+        }
+
+        private bool ValidateOwner(Owner owner)
+        {
+            var valid = !string.IsNullOrEmpty(owner.Name)
+                        && !string.IsNullOrEmpty(owner.Secondname)
+                        && !string.IsNullOrEmpty(owner.PhoneNumber);
+            if (!valid)
+            {
+                Console.WriteLine("Вы не заполнили все поля.");
+            }
+            if (!flatManager.IsUniqueOwner(owner))
+            {
+                Console.WriteLine("Пользователь с таким телефон уже зарегистрирован.");
+                return false;
             }
             return valid;
         }

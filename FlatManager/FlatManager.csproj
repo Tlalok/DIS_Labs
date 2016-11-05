@@ -60,6 +60,7 @@
     <Compile Include="UserUI\Menu\MenuWrapper.cs" />
     <Compile Include="UserUI\Menu\MenuDisplayer.cs" />
     <Compile Include="UserUI\Menu\Owner\AddressUpdateMenu.cs" />
+    <Compile Include="UserUI\Menu\Owner\CreateOwnerMenu.cs" />
     <Compile Include="UserUI\Menu\Owner\FlatUpdateMenu.cs" />
     <Compile Include="UserUI\Menu\Owner\LoginMenu.cs" />
     <Compile Include="UserUI\Menu\Owner\FlatActionsMenu.cs" />

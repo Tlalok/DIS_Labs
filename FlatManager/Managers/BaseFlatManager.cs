@@ -81,5 +81,12 @@ namespace FlatManager.Managers
         public abstract List<Owner> Owners { get; }
 
         public abstract void CreateOwner(Owner owner);
+
+        public bool IsUniqueOwner(Owner owner)
+        {
+            return
+                !Owners.Any(
+                    ow => string.Equals(ow.PhoneNumber, owner.PhoneNumber, StringComparison.InvariantCultureIgnoreCase));
+        }
     }
 }
