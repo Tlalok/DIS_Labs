@@ -33,6 +33,7 @@
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.episodeidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.seriesidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.seriesnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.episodenameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.releasedateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,6 +62,7 @@
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.episodeidDataGridViewTextBoxColumn,
             this.seriesidDataGridViewTextBoxColumn,
+            this.seriesnameDataGridViewTextBoxColumn,
             this.episodenameDataGridViewTextBoxColumn,
             this.durationDataGridViewTextBoxColumn,
             this.releasedateDataGridViewTextBoxColumn});
@@ -86,6 +88,13 @@
             this.seriesidDataGridViewTextBoxColumn.Name = "seriesidDataGridViewTextBoxColumn";
             this.seriesidDataGridViewTextBoxColumn.ReadOnly = true;
             this.seriesidDataGridViewTextBoxColumn.Width = 60;
+            // 
+            // seriesnameDataGridViewTextBoxColumn
+            // 
+            this.seriesnameDataGridViewTextBoxColumn.DataPropertyName = "series_name";
+            this.seriesnameDataGridViewTextBoxColumn.HeaderText = "series_name";
+            this.seriesnameDataGridViewTextBoxColumn.Name = "seriesnameDataGridViewTextBoxColumn";
+            this.seriesnameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // episodenameDataGridViewTextBoxColumn
             // 
