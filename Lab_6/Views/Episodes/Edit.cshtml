@@ -7,7 +7,7 @@
 <h2>Редактирование эпизода</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Episodes", FormMethod.Post, new { id = "formid" }))
 {
     @Html.AntiForgeryToken()
     
@@ -48,7 +48,7 @@
                 @Html.ValidationMessageFor(model => model.ReleaseDate, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <div id="datepicker"></div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -60,6 +60,17 @@
 <div>
     @Html.ActionLink("Назад к списку", "Index")
 </div>
+
+<script>
+    String.prototype.replaceAll = function (search, replacement) {
+        var target = this;
+        return target.split(search).join(replacement);
+    };
+
+    $('#formid').submit(function () {
+        $("#ReleaseDate").val($("#ReleaseDate").val().replaceAll('.', '/'));
+    });
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
