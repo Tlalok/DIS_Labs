@@ -141,6 +141,10 @@
     <Compile Include="Migrations\201612101517127_1.Designer.cs">
       <DependentUpon>201612101517127_1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612101621087_2.cs" />
+    <Compile Include="Migrations\201612101621087_2.Designer.cs">
+      <DependentUpon>201612101621087_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Episode.cs" />
     <Compile Include="Controllers\EpisodesController.cs" />
@@ -2373,6 +2377,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612101517127_1.resx">
       <DependentUpon>201612101517127_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612101621087_2.resx">
+      <DependentUpon>201612101621087_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
