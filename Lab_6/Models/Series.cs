@@ -12,7 +12,7 @@ namespace Lab_6.Models
     {
         public int Id { get; set; }
         [Required]
-        [DisplayName("Называние")]
+        [DisplayName("Название сериала")]
         public string Name { get; set; }
 
         public override string ToString()
